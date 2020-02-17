@@ -6,7 +6,7 @@ const ZBClient = require('./ZBClient')
 
 const gatewayAddress = 'localhost:26500'
 const conf = {
-  loglevel: 'INFO',
+  loglevel: 'DEBUG',
   stdout: logger
 }
 
@@ -14,8 +14,8 @@ const zbc = new ZBClient(gatewayAddress, conf)
 
 async function main () {
   zbc.connect()
-  // await zbc.topology()
-  await zbc.deployWorkflow('./bpmn/order-process.bpmn')
+  await zbc.topology()
+  // await zbc.deployWorkflow('./bpmn/order-process.bpmn')
 }
 
 main()

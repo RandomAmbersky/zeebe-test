@@ -4,8 +4,6 @@ const _defaultConf = {
   retry: true,
   maxRetries: 50,
   maxRetryTimeout: 5000
-  // onReady: () => console.log(`Connected!`),
-  // onConnectionError: () => console.log(`Disconnected!`)
 }
 
 module.exports = class ZBClient {
@@ -30,5 +28,9 @@ module.exports = class ZBClient {
   async deployWorkflow (filepath) {
     const res = await this.zbc.deployWorkflow(filepath)
     this.logger.info('deployWorkflow: %O', res)
+  }
+
+  async createWorker (taskType, taskHandler) {
+
   }
 }
