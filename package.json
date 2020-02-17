@@ -1,0 +1,13 @@
+{
+  "name": "node-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "docker:start": "docker-compose --file=docker/docker-compose.yml --project-directory . up --force-recreate --no-deps --build"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "private": true
+}
