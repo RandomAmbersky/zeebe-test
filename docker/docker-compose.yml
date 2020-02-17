@@ -5,5 +5,5 @@ services:
     image: camunda/zeebe:latest
     ports:
       - "26500:26500"
-    volumes:
-      - "${PWD}/bpmn:/usr/local/zeebe/example"
+#    volumes:
+#      - "${PWD}/bpmn:/usr/local/zeebe/example"

@@ -15,9 +15,9 @@ module.exports = class ZBClient {
 
   connect () {
     this.zbc = new ZB.ZBClient(this._gatewayAddress, this._conf)
-    this.zbc.on('ready', () => {
-      this.logger.info('onReady is worked')
-    })
+    // this.zbc.on('ready', () => {
+    //   this.logger.info('onReady is worked')
+    // })
   }
 
   async topology () {
@@ -25,11 +25,21 @@ module.exports = class ZBClient {
   }
 
   async deployWorkflow (filepath) {
-    const res = await this.zbc.deployWorkflow(filepath)
-    this.logger.info('deployWorkflow: %O', res)
+    return this.zbc.deployWorkflow(filepath)
   }
 
   async createWorker (taskType, taskHandler) {
+    return this.zbc.createWorker(null, taskType, taskHandler)
+    // worker.on('ready', () => {
+    //   this.logger.info('Worker connected')
+    // })
+    // worker.on('connectionError', () => {
+    //   this.logger.info('Worker disconnected!')
+    // })
+    // return worker
+  }
 
+  async createWorkflowInstance (taskType, intialPayload) {
+    return this.zbc.createWorkflowInstance(taskType, intialPayload)
   }
 }
