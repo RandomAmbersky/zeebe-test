@@ -5,12 +5,12 @@ services:
     image: camunda/zeebe:0.21.1
     ports:
       - "26500:26500"
-    volumes:
-      - "${PWD}/bpmn:/usr/local/zeebe/example"
+#    volumes:
+#      - "${PWD}/bpmn:/usr/local/zeebe/example"
 
-  service:
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile
-    ports:
-      - "8090:8080"
+#  service:
+#    build:
+#      context: .
+#      dockerfile: ./docker/Dockerfile
+#    ports:
+#      - "8090:8080"

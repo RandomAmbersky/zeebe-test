@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js",
+    "node-client:start": "node ./projects/node-client/index.js",
     "docker:start": "docker-compose --file=docker/docker-compose.yml --project-directory . up --force-recreate --no-deps --build"
   },
   "author": "",
   "license": "UNLICENSED",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "zeebe-node": "^0.22.1"
+  }
 }
