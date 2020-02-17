@@ -11,6 +11,8 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "pino": "^5.16.0",
+    "pino-pretty": "^3.6.0",
     "zeebe-node": "^0.22.1"
   }
 }
