@@ -21,8 +21,7 @@ module.exports = class ZBClient {
   }
 
   async topology () {
-    const topology = await this.zbc.topology()
-    this.logger.info('topology: %O', JSON.stringify(topology, null, 2))
+    return this.zbc.topology()
   }
 
   async deployWorkflow (filepath) {

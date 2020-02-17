@@ -7,9 +7,10 @@ exports.get = {
     }
   ],
   'topology': [
-    function (ctx, next) {
-      ctx.log.info('Get api1')
+    async function (ctx, next) {
+      const topology = await ctx.z.topology()
       ctx.status = 200
+      ctx.body = topology
       return next()
     }
   ]

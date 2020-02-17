@@ -10,11 +10,14 @@ const logger = require('pino')({
   }
 })
 
-const gatewayAddress = 'localhost:26500'
+const zLogger = logger.child({
+  zeebe: '1'
+})
 
+const gatewayAddress = 'localhost:26500'
 const conf = {
   loglevel: 'DEBUG',
-  stdout: logger
+  stdout: zLogger
 }
 
 class App extends Koa {
@@ -22,12 +25,12 @@ class App extends Koa {
     super()
     loadMiddleware(this)
     this.log = this.context.log = logger
-    this.z = this.context.log = new ZBClient(gatewayAddress, conf)
+    this.z = this.context.z = new ZBClient(gatewayAddress, conf)
   }
 
   async connect () {
     this.z.connect()
-    this.log.info('KEKE')
+    this.log.info('connect()')
   }
 }
 
