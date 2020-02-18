@@ -61,11 +61,11 @@ class App extends Koa {
 
   _createWorkers () {
     const resp1 = this.z.createWorker('payment-service', handlerPaymentService)
-    // this.log.info(resp1)
+    this.log.info(resp1)
     const resp2 = this.z.createWorker('inventory-service', handlerInventoryService)
-    // this.log.info(resp2)
+    this.log.info(resp2)
     const resp3 = this.z.createWorker('shipment-service', handlerShipmentService)
-    // this.log.info(resp3)
+    this.log.info(resp3)
   }
 }
 
