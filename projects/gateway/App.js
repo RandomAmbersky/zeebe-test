@@ -2,7 +2,7 @@ const Koa = require('koa')
 
 const {loadMiddleware} = require('./loader')
 
-const ZBClient = require('../utils/ZBClient')
+const ZBClient = require('../libs/ZBClient')
 
 const logger = require('pino')({
   prettyPrint: {

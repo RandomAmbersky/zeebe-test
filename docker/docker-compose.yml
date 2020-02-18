@@ -5,7 +5,20 @@ services:
     image: camunda/zeebe:latest
     ports:
       - "26500:26500"
+      - "5701:5701"
     tmpfs: 
       - /usr/local/zeebe/data
-#    volumes:
-#      - "${PWD}/bpmn:/usr/local/zeebe/example"
+    volumes:
+      - '${PWD}/zeebe/zeebe-hazelcast-exporter-0.7.0-jar-with-dependencies.jar:/usr/local/zeebe/lib/zeebe-hazelcast-exporter.jar'
+      - '${PWD}/zeebe/zeebe.cfg.toml:/usr/local/zeebe/conf/zeebe.cfg.toml'
+
+  monitor:
+    container_name: zeebe_monitor
+    image: camunda/zeebe-simple-monitor:latest
+    environment:
+      - io.zeebe.monitor.connectionString=zeebe:26500
+      - io.zeebe.monitor.hazelcast.connection=zeebe:5701
+    ports:
+      - "8090:8080"
+    depends_on:
+      - zeebe
