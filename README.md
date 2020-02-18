@@ -1,9 +1,17 @@
 
+### Воркеры:
+
 payment-service
 
 inventory-service
 
 shipment-service
+
+
+#### Zeebe:
+
+при запуске создает volume с точкой монтирования /usr/local/zeebe/data
+
 
 
 
