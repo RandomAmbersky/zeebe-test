@@ -1,21 +1,22 @@
+### Используемые порты:
+* 8090 - zeebe-monitor
+* 8080 - koa
 
-### Воркеры:
+### Воркеры на схеме:
 
-payment-service
+* payment-service
 
-inventory-service
+* inventory-service
 
-shipment-service
+* shipment-service
 
+### Zeebe:
 
-#### Zeebe:
+При запуске создает volume с точкой монтирования /usr/local/zeebe/data
 
-при запуске создает volume с точкой монтирования /usr/local/zeebe/data
+### About Long process:
 
+* https://forum.zeebe.io/t/long-running-months-years-or-maybe-forever-workflows/951
+* https://github.com/zeebe-io/zeebe/issues/3169#issuecomment-564416383
 
-
-
-Long process:
-
-https://forum.zeebe.io/t/long-running-months-years-or-maybe-forever-workflows/951
 
