@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./projects/gateway/index.js",
-    "docker:start": "docker-compose --file=docker/docker-compose.yml --project-directory . up --force-recreate --no-deps --build"
+    "docker:pull": "docker-compose --file=docker/docker-compose.yml --project-directory . pull",
+    "docker:start": "npm run docker:pull & docker-compose --file=docker/docker-compose.yml --project-directory . up --force-recreate --no-deps --build"
   },
   "author": "",
   "license": "UNLICENSED",
