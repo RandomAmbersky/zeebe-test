@@ -21,6 +21,6 @@
     "pino": "^5.16.0",
     "pino-pretty": "^3.6.0",
     "uuid": "^8.3.0",
-    "zeebe-node": "^0.23.2"
+    "zeebe-node": "^0.23.3"
   }
 }
