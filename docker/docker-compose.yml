@@ -2,23 +2,24 @@ version: "3.7"
 services:
 
   zeebe:
-    image: camunda/zeebe:latest
+    build:
+      context: zeebe/
+      dockerfile: Dockerfile
     ports:
       - "26500:26500"
       - "5701:5701"
     tmpfs: 
       - /usr/local/zeebe/data
     volumes:
-      - '${PWD}/zeebe/zeebe-hazelcast-exporter-0.7.0-jar-with-dependencies.jar:/usr/local/zeebe/lib/zeebe-hazelcast-exporter.jar'
       - '${PWD}/zeebe/zeebe.cfg.toml:/usr/local/zeebe/conf/zeebe.cfg.toml'
 
   monitor:
     container_name: zeebe_monitor
-    image: camunda/zeebe-simple-monitor:latest
+    image: camunda/zeebe-simple-monitor:0.18.0
     environment:
-      - io.zeebe.monitor.connectionString=zeebe:26500
-      - io.zeebe.monitor.hazelcast.connection=zeebe:5701
+      zeebe.client.broker.contactPoint: 'zeebe:26500'
+      zeebe.worker.hazelcast.connection: 'zeebe:5701'
     ports:
-      - "8090:8080"
+      - "8082:8082"
     depends_on:
       - zeebe

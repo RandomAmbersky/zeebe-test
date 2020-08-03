@@ -1,4 +1,5 @@
 const ZB = require('zeebe-node')
+const { v4: uuidv4 } = require('uuid')
 
 const _defaultConf = {
   retry: true,
@@ -41,5 +42,11 @@ module.exports = class ZBClient {
 
   async createWorkflowInstance (taskType, intialPayload) {
     return this.zbc.createWorkflowInstance(taskType, intialPayload)
+  }
+
+  async publishStartMessage (payload) {
+    return this.zbc.publishStartMessage(Object.assign({
+      messageId: uuidv4()
+    }, payload))
   }
 }
