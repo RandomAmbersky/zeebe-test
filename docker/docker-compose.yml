@@ -11,8 +11,7 @@ services:
     tmpfs: 
       - /usr/local/zeebe/data
     volumes:
-      - '${PWD}/zeebe//application.yaml:/usr/local/zeebe/config/application.yaml'
-#      - '${PWD}/zeebe/zeebe.cfg.toml:/usr/local/zeebe/conf/zeebe.cfg.toml'
+      - '${PWD}/zeebe/application.yaml:/usr/local/zeebe/config/application.yaml'
 
   monitor:
     container_name: zeebe_monitor
