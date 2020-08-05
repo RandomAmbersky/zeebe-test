@@ -10,8 +10,10 @@ services:
       - "5701:5701"
     tmpfs: 
       - /usr/local/zeebe/data
-    volumes:
-      - '${PWD}/zeebe/application.yaml:/usr/local/zeebe/config/application.yaml'
+    environment:
+      ZEEBE_HAZELCAST_JARPATH: 'exporters/zeebe-hazelcast-exporter.jar'
+      ZEEBE_HAZELCAST_CLASSNAME: 'io.zeebe.hazelcast.exporter.HazelcastExporter'
+      ZEEBE_HAZELCAST_ARGS_PORT: 5701
 
   monitor:
     container_name: zeebe_monitor
