@@ -1,5 +1,5 @@
 # The image from Docker Hub
-FROM camunda/zeebe:0.24.1
+FROM camunda/zeebe:0.24.2
 RUN apt-get -y update && apt-get install -y wget
 
 ARG ZEEBE_HAZELCAST_EXPORTER_VERSION=0.9.0
