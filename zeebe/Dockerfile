@@ -2,9 +2,6 @@
 FROM camunda/zeebe:0.26.0
 RUN apt-get -y update && apt-get install -y wget
 
-# Install global dependencies
-#RUN apk add --no-cache git openssh tini tzdata
-
 # We must set up default timezone
 # https://wiki.alpinelinux.org/wiki/Setting_the_timezone
 RUN cp /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
