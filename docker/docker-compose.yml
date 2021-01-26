@@ -9,9 +9,6 @@ services:
       - ZEEBE_LOG_LEVEL=debug
       - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_CLASSNAME=io.zeebe.exporter.ElasticsearchExporter
       - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_ARGS_URL=http://elasticsearch:9200
-#    ports:
-#      - "26500:26500"
-#      - "5701:5701"
     tmpfs:
       - /usr/local/zeebe/data
     logging:
@@ -35,8 +32,6 @@ services:
       - cluster.name=elasticsearch
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     tmpfs: '/usr/share/elasticsearch/data'
-#    ports:
-#      - 9200:9200
     logging:
       driver: 'none'
 
@@ -44,8 +39,6 @@ services:
     image: camunda/operate:0.26.0
     env_file:
       - "${PWD}/env/zeebe_operate.env"
-    volumes:
-     - ${PWD}/env/zeebe_operate_application.yml:/usr/local/operate/config/application.yml
     ports:
       - 8087:8080
 #    logging:
