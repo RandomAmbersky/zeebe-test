@@ -5,18 +5,69 @@ services:
     build:
       context: zeebe/
       dockerfile: Dockerfile
+    environment:
+      - ZEEBE_LOG_LEVEL=debug
+      - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_CLASSNAME=io.zeebe.exporter.ElasticsearchExporter
+      - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_ARGS_URL=http://elasticsearch:9200
     ports:
       - "26500:26500"
       - "5701:5701"
     tmpfs: 
       - /usr/local/zeebe/data
+#    logging:
+#      driver: 'none'
 
   monitor:
-    image: camunda/zeebe-simple-monitor:0.19.0
-    environment:
-      - zeebe.client.broker.contactPoint=zeebe:26500
-      - zeebe.client.worker.hazelcast.connection=zeebe:5701
+    image: camunda/zeebe-simple-monitor:0.19.1
+    env_file:
+      - "${PWD}/env/connection.env"
     ports:
-      - "8082:8082"
-    depends_on:
-      - zeebe
+      - 8082:8082
+    logging:
+      driver: 'none'
+
+#  zeebe-tasklist:
+#    image: camunda/zeebe-tasklist:0.26.0
+#    ports:
+#      - 8083:8080
+#    environment:
+#      - zeebe.tasklist.elasticsearch.url=http://elasticsearch:9200
+#      - zeebe.tasklist.zeebeElasticsearch.url=http://elasticsearch:9200
+#      - zeebe.tasklist.zeebe.brokerContactPoint=zeebe:26500
+
+  elasticsearch:
+    image: library/elasticsearch:7.10.1
+#    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.7.1
+    environment:
+      - discovery.type=single-node
+      - cluster.name=elasticsearch
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    tmpfs: '/usr/share/elasticsearch/data'
+    logging:
+      driver: 'none'
+
+#  operate:
+#    image: camunda/operate:latest
+#    environment:
+#      - camunda.operate.elasticsearch.clusterName=elasticsearch
+#      - camunda.operate.elasticsearch.host=elasticsearch
+#      - camunda.operate.elasticsearch.port=9200
+#      - camunda.operate.elasticsearch.url=http://elasticsearch:9200
+#      CAMUNDA_OPERATE_ELASTICSEARCH_CLUSTERNAME: elasticsearch
+#      CAMUNDA_OPERATE_ELASTICSEARCH_HOST: elasticsearch
+#      CAMUNDA_OPERATE_ELASTICSEARCH_PORT: 9200
+#      CAMUNDA_OPERATE_ZEEBEELASTICSEARCH_CLUSTERNAME: elasticsearch
+#      CAMUNDA_OPERATE_ZEEBEELASTICSEARCH_HOST: elasticsearch
+#      CAMUNDA_OPERATE_ZEEBEELASTICSEARCH_PORT: 9200
+#      CAMUNDA_OPERATE_ZEEBE_BROKERCONTACTPOINT: zeebe:26500
+#    ports:
+#      - 8087:8080
+#    logging:
+#      driver: 'none'
+
+#  zeebe-http-worker:
+#    image: camunda/zeebe-http-worker:latest
+#    environment:
+#      ZEEBE_CLIENT_BROKER_CONTACTPOINT: 'zeebe:26500'
+##    logging:
+##      driver: "none"
