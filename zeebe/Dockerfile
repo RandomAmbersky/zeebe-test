@@ -1,5 +1,5 @@
 # The image from Docker Hub
-FROM camunda/zeebe:0.26.0
+FROM camunda/zeebe:1.0.0
 RUN apt-get -y update && apt-get install -y wget
 
 # We must set up default timezone
@@ -7,7 +7,7 @@ RUN apt-get -y update && apt-get install -y wget
 RUN cp /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
     && echo "Europe/Moscow" > /etc/timezone
 
-ARG ZEEBE_HAZELCAST_EXPORTER_VERSION=0.10.0
+ARG ZEEBE_HAZELCAST_EXPORTER_VERSION=1.0.0
 ARG ZEEBE_HAZELCAST_EXPORTER_URI=https://github.com/zeebe-io/zeebe-hazelcast-exporter/releases/download/$ZEEBE_HAZELCAST_EXPORTER_VERSION/zeebe-hazelcast-exporter-$ZEEBE_HAZELCAST_EXPORTER_VERSION-jar-with-dependencies.jar
 ARG ZEEBE_HAZELCAST_EXPORTER_DIR=/usr/local/zeebe/exporters
 ARG ZEEBE_HAZELCAST_EXPORTER_FILENAME=$ZEEBE_HAZELCAST_EXPORTER_DIR/zeebe-hazelcast-exporter.jar
