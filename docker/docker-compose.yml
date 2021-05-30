@@ -2,23 +2,49 @@ version: "3.7"
 services:
 
   zeebe:
-    image: camunda/zeebe:latest
-    ports:
-      - "26500:26500"
-      - "5701:5701"
-    tmpfs: 
+    build:
+      context: zeebe/
+      dockerfile: Dockerfile
+    environment:
+      - ZEEBE_LOG_LEVEL=debug
+      - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_CLASSNAME=io.camunda.zeebe.exporter.ElasticsearchExporter
+      - ZEEBE_BROKER_EXPORTERS_ELASTICSEARCH_ARGS_URL=http://elasticsearch:9200
+    tmpfs:
       - /usr/local/zeebe/data
-    volumes:
-      - '${PWD}/zeebe/zeebe-hazelcast-exporter-0.7.0-jar-with-dependencies.jar:/usr/local/zeebe/lib/zeebe-hazelcast-exporter.jar'
-      - '${PWD}/zeebe/zeebe.cfg.toml:/usr/local/zeebe/conf/zeebe.cfg.toml'
+    logging:
+      driver: 'none'
 
   monitor:
-    container_name: zeebe_monitor
-    image: camunda/zeebe-simple-monitor:latest
-    environment:
-      - io.zeebe.monitor.connectionString=zeebe:26500
-      - io.zeebe.monitor.hazelcast.connection=zeebe:5701
+    image: camunda/zeebe-simple-monitor:1.0.0
+    env_file:
+      - "${PWD}/env/zeebe_monitor.env"
     ports:
-      - "8090:8080"
-    depends_on:
-      - zeebe
+      - 8082:8082
+    logging:
+      driver: 'none'
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.0
+    environment:
+      - discovery.type=single-node
+      - cluster.name=elasticsearch
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    tmpfs: '/usr/share/elasticsearch/data'
+    logging:
+      driver: 'none'
+
+  operate:
+    image: camunda/operate:1.2.0
+    env_file:
+      - "${PWD}/env/zeebe_operate.env"
+    ports:
+      - 8087:8080
+    logging:
+      driver: 'none'
+
+#  zeebe-http-worker:
+#    image: camunda/zeebe-http-worker:latest
+#    environment:
+#      ZEEBE_CLIENT_BROKER_CONTACTPOINT: 'zeebe:26500'
+##    logging:
+##      driver: "none"
